@@ -34,12 +34,14 @@ public class LevelUtilMixin {
         BlockPos blockPos = new BlockPos(center);
         BlockState originBlockState = level.getBlockState(blockPos);
 
-        if (caster instanceof Player player && canTransferShockWave(level, blockPos, originBlockState)) {
-            double max = Math.max(20, Math.min(15 * radius, 120));
-            if(level.isClientSide()) {
-                CameraEngine.getInstance().shakeCamera((int) max, (float) Math.min(2 * radius, 12));
-            } else {
-                NetWorkManger.sendToPlayer(new CameraShake((int) max, (float) Math.min(2 * radius, 12)), (ServerPlayer)player);
+        if (canTransferShockWave(level, blockPos, originBlockState)) {
+            double t = Math.max(20, Math.min(15 * radius, 120));
+            double s = Math.min(2 * radius, 12);
+            if(caster instanceof Player player) {
+                //CameraEngine.getInstance().shakeCamera((int) t, (float) s);
+                for (ServerPlayer serverPlayer : player.level.getEntitiesOfClass(ServerPlayer.class, player.getBoundingBox().inflate(radius, 5, radius))){
+                    NetWorkManger.sendToPlayer(new CameraShake((int) t, (float) s), serverPlayer);
+                }
             }
         }
     }

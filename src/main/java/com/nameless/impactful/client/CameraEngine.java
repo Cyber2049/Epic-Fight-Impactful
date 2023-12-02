@@ -24,8 +24,8 @@ public class CameraEngine {
     }
 
     public void shakeCamera(int time, float strength){
-        this.cameraShakeTime = time;
         this.cameraShakeStrength = strength;
+        this.cameraShakeTime = time;
     }
     @Mod.EventBusSubscriber(modid = Impactful.MOD_ID, value = Dist.CLIENT)
     public static class Events {
@@ -35,10 +35,10 @@ public class CameraEngine {
             if(player != null && instance.cameraShakeTime > 0 && !Minecraft.getInstance().isPaused()){
                 float delta = Minecraft.getInstance().getFrameTime();
                 float ticksExistedDelta = player.tickCount + delta;
-                float k = instance.cameraShakeStrength / 100F;
-                event.setPitch((float) (event.getPitch() + k * Math.cos(ticksExistedDelta * 3) * 25));
-                event.setYaw((float) (event.getYaw() + k * Math.cos(ticksExistedDelta * 3) * 25));
-                event.setRoll((float) (event.getRoll() + k * Math.cos(ticksExistedDelta * 3) * 25));
+                float k = instance.cameraShakeStrength / 4F;
+                event.setPitch((float) (event.getPitch() + k * Math.cos(ticksExistedDelta * 3)));
+                event.setYaw((float) (event.getYaw() + k * Math.cos(ticksExistedDelta * 3)));
+                event.setRoll((float) (event.getRoll() + k * Math.cos(ticksExistedDelta * 3)));
                 instance.cameraShakeTime--;
             }
         }
