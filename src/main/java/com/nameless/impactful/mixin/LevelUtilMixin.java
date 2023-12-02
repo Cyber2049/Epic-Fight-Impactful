@@ -1,6 +1,5 @@
 package com.nameless.impactful.mixin;
 
-import com.nameless.impactful.client.CameraEngine;
 import com.nameless.impactful.network.CameraShake;
 import com.nameless.impactful.network.NetWorkManger;
 import net.minecraft.core.BlockPos;
