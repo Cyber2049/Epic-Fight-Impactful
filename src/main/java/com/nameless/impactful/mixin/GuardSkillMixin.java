@@ -20,9 +20,9 @@ public class GuardSkillMixin {
     @Inject(method = "getGuardMotion(Lyesman/epicfight/world/capabilities/entitypatch/player/PlayerPatch;Lyesman/epicfight/world/capabilities/item/CapabilityItem;Lyesman/epicfight/skill/guard/GuardSkill$BlockType;)Lyesman/epicfight/api/animation/types/StaticAnimation;", at = @At("HEAD"), remap = false)
     protected void oGetGuradMotion(PlayerPatch<?> playerpatch, CapabilityItem itemCapability, GuardSkill.BlockType blockType, CallbackInfoReturnable<StaticAnimation> cir) {
         Pair<Integer, Float> k = switch (blockType) {
-            case GUARD_BREAK -> Pair.of(CommonConfig.GUARDBREAK_CAMERASHAKE_TIME.get(), CommonConfig.GUARDBREAK_CAMERASHAKE_STRENGTH.get());
-            case GUARD -> Pair.of(CommonConfig.GUARD_CAMERASHAKE_TIME.get(), CommonConfig.GUARD_CAMERASHAKE_STRENGTH.get());
-            case ADVANCED_GUARD -> Pair.of(CommonConfig.ADVANCEDGUARD_CAMERASHAKE_TIME.get(), CommonConfig.ADVANCEDGUARD_CAMERASHAKE_STRENGTH.get());
+            case GUARD_BREAK -> Pair.of(CommonConfig.GUARDBREAK_CAMERASHAKE_TIME.get(), CommonConfig.GUARDBREAK_CAMERASHAKE_STRENGTH.get().floatValue());
+            case GUARD -> Pair.of(CommonConfig.GUARD_CAMERASHAKE_TIME.get(), CommonConfig.GUARD_CAMERASHAKE_STRENGTH.get().floatValue());
+            case ADVANCED_GUARD -> Pair.of(CommonConfig.ADVANCEDGUARD_CAMERASHAKE_TIME.get(), CommonConfig.ADVANCEDGUARD_CAMERASHAKE_STRENGTH.get().floatValue());
             default -> Pair.of(10, 1F);
         };
         NetWorkManger.sendToPlayer(new CameraShake(k.getFirst(),k.getSecond()), (ServerPlayer) playerpatch.getOriginal());

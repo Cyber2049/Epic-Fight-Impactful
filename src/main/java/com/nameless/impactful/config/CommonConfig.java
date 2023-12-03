@@ -17,11 +17,11 @@ public class CommonConfig {
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> WEAPON_CATEGORIES_SETTING;
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> ANIMATIONS_SETTING;
     public static final ForgeConfigSpec.ConfigValue<Integer> GUARD_CAMERASHAKE_TIME;
-    public static final ForgeConfigSpec.ConfigValue<Float> GUARD_CAMERASHAKE_STRENGTH;
+    public static final ForgeConfigSpec.ConfigValue<Double> GUARD_CAMERASHAKE_STRENGTH;
     public static final ForgeConfigSpec.ConfigValue<Integer> ADVANCEDGUARD_CAMERASHAKE_TIME;
-    public static final ForgeConfigSpec.ConfigValue<Float> ADVANCEDGUARD_CAMERASHAKE_STRENGTH;
+    public static final ForgeConfigSpec.ConfigValue<Double> ADVANCEDGUARD_CAMERASHAKE_STRENGTH;
     public static final ForgeConfigSpec.ConfigValue<Integer> GUARDBREAK_CAMERASHAKE_TIME;
-    public static final ForgeConfigSpec.ConfigValue<Float> GUARDBREAK_CAMERASHAKE_STRENGTH;
+    public static final ForgeConfigSpec.ConfigValue<Double> GUARDBREAK_CAMERASHAKE_STRENGTH;
     public static final Map<WeaponCategory, Pair<Integer, Float>> hit_stop_by_weapon_categories = Maps.newHashMap();
     public static final Map<WeaponCategory, Pair<Integer, Float>> camera_shake_by_weapon_categories = Maps.newHashMap();
     public static final Map<StaticAnimation, Pair<Integer, Float>> hit_stop_by_animation = Maps.newHashMap();
@@ -69,19 +69,19 @@ public class CommonConfig {
         builder.push("screen shake by guard");
         builder.comment("screen shake when guard success");
         GUARD_CAMERASHAKE_TIME = builder.define("guard_screen_shake_time", 20);
-        GUARD_CAMERASHAKE_STRENGTH = builder.define("guard_screen_shake_amplitude", 2.5F);
+        GUARD_CAMERASHAKE_STRENGTH = builder.defineInRange("guard_screen_shake_amplitude", 2.5D,0D,10D);
         builder.pop();
 
         builder.push("screen shake by advanced guard");
         builder.comment("screen shake when advanced guard success, like impactful guard or parry");
         ADVANCEDGUARD_CAMERASHAKE_TIME = builder.define("advanced_guard_screen_shake_time", 15);
-        ADVANCEDGUARD_CAMERASHAKE_STRENGTH = builder.define("advanced_guard_screen_shake_amplitude", 1.5F);
+        ADVANCEDGUARD_CAMERASHAKE_STRENGTH = builder.defineInRange("advanced_guard_screen_shake_amplitude", 1.5D,0D,10D);
         builder.pop();
 
         builder.push("screen shake when guard break");
         builder.comment("screen shake when guard break");
         GUARDBREAK_CAMERASHAKE_TIME = builder.define("guard_break_screen_shake_time", 30);
-        GUARDBREAK_CAMERASHAKE_STRENGTH = builder.define("guard_break_screen_shake_amplitude", 5F);
+        GUARDBREAK_CAMERASHAKE_STRENGTH = builder.defineInRange("guard_break_screen_shake_amplitude", 5D,0D,10D);
         builder.pop();
 
         SPEC = builder.build();

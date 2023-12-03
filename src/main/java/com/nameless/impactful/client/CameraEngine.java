@@ -36,7 +36,7 @@ public class CameraEngine {
             if(player != null && instance.cameraShakeTime > 0 && !Minecraft.getInstance().isPaused()){
                 float delta = Minecraft.getInstance().getFrameTime();
                 float ticksExistedDelta = player.tickCount + delta;
-                float k = instance.cameraShakeStrength / 4F * ClientConfig.SCREEN_SHAKE_AMPLITUDE_MULTIPLY.get();
+                float k = instance.cameraShakeStrength / 4F * ClientConfig.SCREEN_SHAKE_AMPLITUDE_MULTIPLY.get().floatValue();
                 if(!ClientConfig.DISABLE_SCREEN_SHAKE.get()) {
                     event.setPitch((float) (event.getPitch() + k * Math.cos(ticksExistedDelta * 3)));
                     event.setYaw((float) (event.getYaw() + k * Math.cos(ticksExistedDelta * 3)));
