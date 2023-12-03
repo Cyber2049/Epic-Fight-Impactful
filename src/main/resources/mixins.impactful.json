@@ -9,6 +9,7 @@
     "PlayerPatchMixin"
   ],
   "client": [
+    "ClientLevelUtilMixin"
   ],
   "injectors": {
     "defaultRequire": 1
