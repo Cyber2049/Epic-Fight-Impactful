@@ -1,4 +1,4 @@
-package com.nameless.impactful;
+package com.nameless.impactful.config;
 
 import com.google.common.collect.Maps;
 import com.mojang.datafixers.util.Pair;

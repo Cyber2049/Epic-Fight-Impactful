@@ -1,7 +1,7 @@
 package com.nameless.impactful.skill;
 
 import com.mojang.datafixers.util.Pair;
-import com.nameless.impactful.CommonConfig;
+import com.nameless.impactful.config.CommonConfig;
 import com.nameless.impactful.network.CameraShake;
 import com.nameless.impactful.network.NetWorkManger;
 import net.minecraft.server.level.ServerPlayer;

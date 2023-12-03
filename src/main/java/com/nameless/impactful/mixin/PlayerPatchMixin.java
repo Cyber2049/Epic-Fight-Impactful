@@ -1,7 +1,7 @@
 package com.nameless.impactful.mixin;
 
 import com.mojang.datafixers.util.Pair;
-import com.nameless.impactful.CommonConfig;
+import com.nameless.impactful.config.CommonConfig;
 import com.nameless.impactful.gameassets.HitStopSkill;
 import com.nameless.impactful.skill.Slots;
 import net.minecraft.world.InteractionHand;

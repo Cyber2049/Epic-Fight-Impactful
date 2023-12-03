@@ -1,6 +1,7 @@
 package com.nameless.impactful.client;
 
 import com.nameless.impactful.Impactful;
+import com.nameless.impactful.config.ClientConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
@@ -35,10 +36,12 @@ public class CameraEngine {
             if(player != null && instance.cameraShakeTime > 0 && !Minecraft.getInstance().isPaused()){
                 float delta = Minecraft.getInstance().getFrameTime();
                 float ticksExistedDelta = player.tickCount + delta;
-                float k = instance.cameraShakeStrength / 4F;
-                event.setPitch((float) (event.getPitch() + k * Math.cos(ticksExistedDelta * 3)));
-                event.setYaw((float) (event.getYaw() + k * Math.cos(ticksExistedDelta * 3)));
-                event.setRoll((float) (event.getRoll() + k * Math.cos(ticksExistedDelta * 3)));
+                float k = instance.cameraShakeStrength / 4F * ClientConfig.SCREEN_SHAKE_AMPLITUDE_MULTIPLY.get();
+                if(!ClientConfig.DISABLE_SCREEN_SHAKE.get()) {
+                    event.setPitch((float) (event.getPitch() + k * Math.cos(ticksExistedDelta * 3)));
+                    event.setYaw((float) (event.getYaw() + k * Math.cos(ticksExistedDelta * 3)));
+                    event.setRoll((float) (event.getRoll() + k * Math.cos(ticksExistedDelta * 3)));
+                }
                 instance.cameraShakeTime--;
             }
         }

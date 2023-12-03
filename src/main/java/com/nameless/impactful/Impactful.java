@@ -1,6 +1,8 @@
 package com.nameless.impactful;
 
 import com.nameless.impactful.client.CameraEngine;
+import com.nameless.impactful.config.ClientConfig;
+import com.nameless.impactful.config.CommonConfig;
 import com.nameless.impactful.gameassets.HitStopSkill;
 import com.nameless.impactful.network.NetWorkManger;
 import com.nameless.impactful.skill.Categories;
@@ -21,6 +23,7 @@ public class Impactful {
     public Impactful(){
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
         bus.addListener(this::commonSetup);
         bus.addListener(this::clientSetup);
         bus.addListener(this::loadConfig);
