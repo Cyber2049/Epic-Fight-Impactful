@@ -13,7 +13,7 @@ import java.util.Map;
 
 
 public class CommonConfig {
-    private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+    public static final ForgeConfigSpec SPEC;
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> WEAPON_CATEGORIES_SETTING;
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> ANIMATIONS_SETTING;
     public static final ForgeConfigSpec.ConfigValue<Integer> GUARD_CAMERASHAKE_TIME;
@@ -22,8 +22,6 @@ public class CommonConfig {
     public static final ForgeConfigSpec.ConfigValue<Float> ADVANCEDGUARD_CAMERASHAKE_STRENGTH;
     public static final ForgeConfigSpec.ConfigValue<Integer> GUARDBREAK_CAMERASHAKE_TIME;
     public static final ForgeConfigSpec.ConfigValue<Float> GUARDBREAK_CAMERASHAKE_STRENGTH;
-    public static final ForgeConfigSpec SPEC;
-
     public static final Map<WeaponCategory, Pair<Integer, Float>> hit_stop_by_weapon_categories = Maps.newHashMap();
     public static final Map<WeaponCategory, Pair<Integer, Float>> camera_shake_by_weapon_categories = Maps.newHashMap();
     public static final Map<StaticAnimation, Pair<Integer, Float>> hit_stop_by_animation = Maps.newHashMap();
@@ -42,50 +40,51 @@ public class CommonConfig {
     );
 
     static {
-        BUILDER.push("weapon categories setting");
-        BUILDER.comment(
-                "format: weapon_categories hit_stop_duration speed_ratio camera_shake_duration camera_shake_strength",
+        ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+        builder.push("weapon categories setting");
+        builder.comment(
+                "format: weapon_categories hit_stop_duration speed_ratio camera_shake_duration camera_shake_amplitude",
                 "example: greatsword 4 0.1 15 2",
                 "weapon_categories: greatsword, longsword, sword, etc",
                 "hit_stop_duration: duration of hit stop(tick)",
                 "speed_ration: percentage rate, 0.0 - 1.0",
                 "camera_shake_duration: duration of screen shake(tick)",
-                "camera_shake_strength: amplitude of screen shake");
-        WEAPON_CATEGORIES_SETTING = BUILDER.defineList("weapon_categories_setting", categories_default_setting, obj -> true);
-        BUILDER.pop();
+                "camera_shake_amplitude: amplitude of screen shake");
+        WEAPON_CATEGORIES_SETTING = builder.defineList("weapon_categories_setting", categories_default_setting, obj -> true);
+        builder.pop();
 
-        BUILDER.push("animation setting");
-        BUILDER.comment(
+        builder.push("animation setting");
+        builder.comment(
                 "priority higher than weapon categories setting and override it",
-                "format: attack_animation hit_stop_duration speed_ratio camera_shake_duration camera_shake_strength",
+                "format: attack_animation hit_stop_duration speed_ratio camera_shake_duration camera_shake_amplitude",
                 "example: epicfight:biped/combat/greatsword_dash 4 0 20 5",
                 "attack_animation: modid:path",
                 "hit_stop_duration: duration of hit stop(tick)",
                 "speed_ration: percentage rate, 0.0 - 1.0",
                 "camera_shake_duration: duration of screen shake(tick)",
-                "camera_shake_strength: amplitude of screen shake");
-        ANIMATIONS_SETTING = BUILDER.defineList("animation_setting", ArrayList::new, obj -> true);
-        BUILDER.pop();
+                "camera_shake_amplitude: amplitude of screen shake");
+        ANIMATIONS_SETTING = builder.defineList("animation_setting", ArrayList::new, obj -> true);
+        builder.pop();
 
-        BUILDER.push("screen shake by guard");
-        BUILDER.comment("screen shake when guard success");
-        GUARD_CAMERASHAKE_TIME = BUILDER.define("guard_screen_shake_time", 20);
-        GUARD_CAMERASHAKE_STRENGTH = BUILDER.define("guard_screen_shake_strength", 2.5F);
-        BUILDER.pop();
+        builder.push("screen shake by guard");
+        builder.comment("screen shake when guard success");
+        GUARD_CAMERASHAKE_TIME = builder.define("guard_screen_shake_time", 20);
+        GUARD_CAMERASHAKE_STRENGTH = builder.define("guard_screen_shake_amplitude", 2.5F);
+        builder.pop();
 
-        BUILDER.push("screen shake by advanced guard");
-        BUILDER.comment("screen shake when advanced guard success, like impactful guard or parry");
-        ADVANCEDGUARD_CAMERASHAKE_TIME = BUILDER.define("advanced_guard_screen_shake_time", 15);
-        ADVANCEDGUARD_CAMERASHAKE_STRENGTH = BUILDER.define("advanced_guard_screen_shake_strength", 1.5F);
-        BUILDER.pop();
+        builder.push("screen shake by advanced guard");
+        builder.comment("screen shake when advanced guard success, like impactful guard or parry");
+        ADVANCEDGUARD_CAMERASHAKE_TIME = builder.define("advanced_guard_screen_shake_time", 15);
+        ADVANCEDGUARD_CAMERASHAKE_STRENGTH = builder.define("advanced_guard_screen_shake_amplitude", 1.5F);
+        builder.pop();
 
-        BUILDER.push("screen shake when guard break");
-        BUILDER.comment("screen shake when guard break");
-        GUARDBREAK_CAMERASHAKE_TIME = BUILDER.define("guard_break_screen_shake_time", 30);
-        GUARDBREAK_CAMERASHAKE_STRENGTH = BUILDER.define("guard_break_screen_shake_strength", 5F);
-        BUILDER.pop();
+        builder.push("screen shake when guard break");
+        builder.comment("screen shake when guard break");
+        GUARDBREAK_CAMERASHAKE_TIME = builder.define("guard_break_screen_shake_time", 30);
+        GUARDBREAK_CAMERASHAKE_STRENGTH = builder.define("guard_break_screen_shake_amplitude", 5F);
+        builder.pop();
 
-        SPEC = BUILDER.build();
+        SPEC = builder.build();
     }
 
     public static void load(){
