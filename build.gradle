@@ -18,7 +18,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.spongepowered.mixin'
 
 
-version = '0.2'
+version = '18.5.3'
 group = 'com.nameless.impactful' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'impactful'
 
@@ -118,6 +118,7 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.18.2-40.2.14'
     implementation fg.deobf("curse.maven:epic-fight-mod-405076:4902493")
     implementation fg.deobf("curse.maven:mmmmmmmmmmmm-225738:3820503")
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
 // Example for how to get properties into the manifest for reading at runtime.

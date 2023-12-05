@@ -51,7 +51,7 @@ public class HitStop extends Skill {
                 container.getDataManager().setDataSync(HIT_STOP,true, (ServerPlayer) container.getExecuter().getOriginal());
                 container.getDataManager().setData(LAST_HIT_TICK,  event.getPlayerPatch().getOriginal().tickCount);
                 if(cameraShake.getFirst() > 0) {
-                    NetWorkManger.sendToPlayer(new CameraShake(cameraShake.getFirst(), cameraShake.getSecond()), (ServerPlayer) container.getExecuter().getOriginal());
+                    NetWorkManger.sendToPlayer(new CameraShake(cameraShake.getFirst(), cameraShake.getSecond(), 3F), (ServerPlayer) container.getExecuter().getOriginal());
                 }
             }
         });

@@ -25,6 +25,6 @@ public class GuardSkillMixin {
             case ADVANCED_GUARD -> Pair.of(CommonConfig.ADVANCEDGUARD_CAMERASHAKE_TIME.get(), CommonConfig.ADVANCEDGUARD_CAMERASHAKE_STRENGTH.get().floatValue());
             default -> Pair.of(10, 1F);
         };
-        NetWorkManger.sendToPlayer(new CameraShake(k.getFirst(),k.getSecond()), (ServerPlayer) playerpatch.getOriginal());
+        NetWorkManger.sendToPlayer(new CameraShake(k.getFirst(),k.getSecond(), 1.5F), (ServerPlayer) playerpatch.getOriginal());
     }
 }

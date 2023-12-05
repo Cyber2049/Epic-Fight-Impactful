@@ -1,12 +1,19 @@
 package com.nameless.impactful;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.nameless.impactful.client.CameraEngine;
+import com.nameless.impactful.command.ShakeCameraCommand;
 import com.nameless.impactful.config.ClientConfig;
 import com.nameless.impactful.config.CommonConfig;
 import com.nameless.impactful.gameassets.HitStopSkill;
 import com.nameless.impactful.network.NetWorkManger;
 import com.nameless.impactful.skill.Categories;
 import com.nameless.impactful.skill.Slots;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -30,6 +37,7 @@ public class Impactful {
         HitStopSkill.registerSkills();
         SkillCategory.ENUM_MANAGER.loadPreemptive(Categories.class);
         Slots.ENUM_MANAGER.loadPreemptive(Slots.class);
+        MinecraftForge.EVENT_BUS.addListener(this::registerCommands);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event){
@@ -44,5 +52,13 @@ public class Impactful {
         new CameraEngine();
     }
 
+    private void registerCommands(RegisterCommandsEvent event){
+        event.getDispatcher().register(
+                LiteralArgumentBuilder.<CommandSourceStack>literal("impactful")
+                        .requires(source -> source.hasPermission(2))
+                        .then(Commands.argument("player", EntityArgument.player())
+                                .then(ShakeCameraCommand.register()))
+        );
+    }
 
 }

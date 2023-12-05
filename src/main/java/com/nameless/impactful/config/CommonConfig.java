@@ -28,15 +28,19 @@ public class CommonConfig {
     public static final Map<StaticAnimation, Pair<Integer, Float>> camera_shake_by_animation = Maps.newHashMap();
 
     private static final List<String> categories_default_setting = List.of(
-            "greatsword 4 0.1 15 2",
-            "longsword 3 0.25 10 1.5",
-            "tachi 3 0.25 10 1.5",
-            "uchigatana 3 0.2 10 1.3",
-            "spear 3 0.2 15 1",
-            "trident 3 0.2 15 1",
-            "sword 3 0.45 8 0.75",
-            "dagger 2 0.6 5 0.5",
-            "fist 4 0.3 10 0.5"
+            "greatsword 3 0.1 15 2",
+            "longsword 2 0.25 8 1.2",
+            "uchigatana 2 0.25 8 1.2",
+            "katana 2 0.2 8 1.2",
+            "spear 2 0.2 10 1",
+            "trident 2 0.2 10 1",
+            "sword 2 0.4 8 0.75",
+            "dagger 1 0.6 5 0.5",
+            "fist 2 0.3 10 0.5",
+            "axe 3 0.5 15 1.5",
+            "hoe 2 0.3 8 0.3",
+            "pickaxe 2 0.3 8 0.3",
+            "shield 1 0.2 4 1"
     );
 
     static {
