@@ -30,8 +30,8 @@ public class CommonConfig {
     private static final List<String> categories_default_setting = List.of(
             "greatsword 3 0.1 15 2",
             "longsword 2 0.25 8 1.2",
-            "uchigatana 2 0.25 8 1.2",
-            "katana 2 0.2 8 1.2",
+            "tachi 2 0.25 8 1.2",
+            "uchigatana 2 0.2 8 1.2",
             "spear 2 0.2 10 1",
             "trident 2 0.2 10 1",
             "sword 2 0.4 8 0.75",
