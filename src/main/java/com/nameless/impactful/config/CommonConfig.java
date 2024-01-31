@@ -22,6 +22,7 @@ public class CommonConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> ADVANCEDGUARD_CAMERASHAKE_STRENGTH;
     public static final ForgeConfigSpec.ConfigValue<Integer> GUARDBREAK_CAMERASHAKE_TIME;
     public static final ForgeConfigSpec.ConfigValue<Double> GUARDBREAK_CAMERASHAKE_STRENGTH;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> DISABLE_HIT_STOP;
     public static final Map<WeaponCategory, Pair<Integer, Float>> hit_stop_by_weapon_categories = Maps.newHashMap();
     public static final Map<WeaponCategory, Pair<Integer, Float>> camera_shake_by_weapon_categories = Maps.newHashMap();
     public static final Map<StaticAnimation, Pair<Integer, Float>> hit_stop_by_animation = Maps.newHashMap();
@@ -45,6 +46,11 @@ public class CommonConfig {
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+
+        builder.push("disable hit stop");
+        DISABLE_HIT_STOP = builder.define("disable_hit_stop", false);
+        builder.pop();
+
         builder.push("weapon categories setting");
         builder.comment(
                 "format: weapon_categories hit_stop_duration speed_ratio camera_shake_duration camera_shake_amplitude",
