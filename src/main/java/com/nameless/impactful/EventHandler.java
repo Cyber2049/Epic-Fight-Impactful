@@ -18,6 +18,8 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
+import static com.nameless.impactful.capabilities.HitStopCap.HIT_STOP;
+
 public class EventHandler {
     @SubscribeEvent
     public void registerCommands(RegisterCommandsEvent event){
@@ -31,9 +33,11 @@ public class EventHandler {
 
     @SubscribeEvent
     public void attachEntityCapability(AttachCapabilitiesEvent<Entity> event) {
-        if(event.getObject() instanceof Player){
+        if(event.getObject() instanceof Player player){
             HitStopProvider provider = new HitStopProvider();
             event.addCapability(new ResourceLocation(Impactful.MOD_ID, "hit_stop"), provider);
+            player.getEntityData().define(HIT_STOP, false);
+            player.getEntityData().set(HIT_STOP, false);
         }
     }
 

@@ -23,11 +23,7 @@ public class HitStopCap {
     public int LAST_HIT_TICK = 0;
     private int HIT_STOP_TIME = 0;
     private static final UUID EVENT_UUID = UUID.fromString("a0081299-9a78-4aa2-8650-5496ea6cfe68");
-    public HitStopCap(){}
     public void onInitiate(Player player) {
-        player.getEntityData().define(HIT_STOP, false);
-        player.getEntityData().set(HIT_STOP, false);
-
         PlayerPatch<?> playerPatch = (PlayerPatch<?>) player.getCapability(EpicFightCapabilities.CAPABILITY_ENTITY).orElse(null);
         if(playerPatch != null){
             playerPatch.getEventListener().addEventListener(PlayerEventListener.EventType.ACTION_EVENT_SERVER, EVENT_UUID, (event) -> {
