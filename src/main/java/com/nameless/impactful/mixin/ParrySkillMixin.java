@@ -11,11 +11,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import yesman.epicfight.api.animation.types.StaticAnimation;
 import yesman.epicfight.skill.guard.GuardSkill;
+import yesman.epicfight.skill.guard.ParryingSkill;
 import yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch;
 import yesman.epicfight.world.capabilities.item.CapabilityItem;
 
-@Mixin(GuardSkill.class)
-public class GuardSkillMixin {
+@Mixin(ParryingSkill.class)
+public class ParrySkillMixin {
 
     @Inject(method = "getGuardMotion(Lyesman/epicfight/world/capabilities/entitypatch/player/PlayerPatch;Lyesman/epicfight/world/capabilities/item/CapabilityItem;Lyesman/epicfight/skill/guard/GuardSkill$BlockType;)Lyesman/epicfight/api/animation/types/StaticAnimation;", at = @At("HEAD"), remap = false)
     protected void oGetGuradMotion(PlayerPatch<?> playerpatch, CapabilityItem itemCapability, GuardSkill.BlockType blockType, CallbackInfoReturnable<StaticAnimation> cir) {

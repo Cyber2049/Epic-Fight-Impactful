@@ -5,7 +5,8 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "AttackAnimationMixin",
-    "GuardSkillMixin"
+    "GuardSkillMixin",
+    "ParrySkillMixin"
   ],
   "client": [
     "ClientLevelUtilMixin"
