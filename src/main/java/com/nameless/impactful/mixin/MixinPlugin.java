@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class MixinPlugin implements IMixinConfigPlugin
 {
-    private boolean better_third_person_compat;
+    private boolean better_third_person_installed;
 
     private final List<String> better_third_person_compat_mixin_class = List.of(
             "com.nameless.impactful.mixin.BTPCompat.MixinCustomCameraManager",
@@ -25,11 +25,11 @@ public class MixinPlugin implements IMixinConfigPlugin
         try
         {
             Class.forName("io.socol.betterthirdperson.BetterThirdPerson");
-            this.better_third_person_compat = true;
+            this.better_third_person_installed = true;
         }
         catch (ClassNotFoundException e)
         {
-            this.better_third_person_compat = false;
+            this.better_third_person_installed = false;
         }
     }
 
@@ -42,10 +42,8 @@ public class MixinPlugin implements IMixinConfigPlugin
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName)
     {
-        if (!this.better_third_person_compat) {
-            for (String name : this.better_third_person_compat_mixin_class) {
-                    return !mixinClassName.equals(name);
-            }
+        if(!this.better_third_person_installed){
+            return !better_third_person_compat_mixin_class.contains(mixinClassName);
         }
         return true;
     }
