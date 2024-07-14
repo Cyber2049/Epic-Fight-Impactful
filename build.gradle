@@ -18,7 +18,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.spongepowered.mixin'
 
 
-version = '18.5.6'
+version = '18.5.7'
 group = 'com.nameless.impactful' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'impactful'
 
@@ -119,6 +119,7 @@ dependencies {
     implementation fg.deobf("curse.maven:epic-fight-mod-405076:5064407")
     implementation fg.deobf("curse.maven:mmmmmmmmmmmm-225738:3820503")
     //implementation fg.deobf("curse.maven:spit-it-out-857141:4888760")
+    implementation fg.deobf("curse.maven:better-third-person-435044:4177087")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
