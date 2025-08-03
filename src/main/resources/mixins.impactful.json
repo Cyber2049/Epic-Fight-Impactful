@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.nameless.impactful.mixin",
+  "refmap": "impactful.refmap.json",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "client.AnimationManagerClientMixin",
+    "client.ClientLevelUtilMixin",
+    "client.RenderItemBaseMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
+    "common.AnimationManagerCommonMixin",
+    "common.AttackAnimationMixin",
+    "common.CapabilityItemMixin",
+    "common.ItemCapabilityReloadListenerMixin"
+  ]
+}
