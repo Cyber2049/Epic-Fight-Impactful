@@ -2,8 +2,8 @@ package com.nameless.impactful.capabilities;
 
 import com.google.common.collect.Maps;
 import com.nameless.impactful.api.HitStopPropertiesReader;
+import com.nameless.impactful.api.ICapabilityItem;
 import com.nameless.impactful.client.CameraEngine;
-import com.nameless.impactful.client.ICapabilityItem;
 import com.nameless.impactful.client.RadialBlurEngine;
 import com.nameless.impactful.network.CPApplyVFX;
 import com.nameless.impactful.network.NetWorkManger;

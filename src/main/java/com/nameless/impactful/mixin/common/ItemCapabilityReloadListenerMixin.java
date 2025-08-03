@@ -1,7 +1,7 @@
 package com.nameless.impactful.mixin.common;
 
+import com.nameless.impactful.api.ICapabilityItem;
 import com.nameless.impactful.capabilities.ImpactfulCap;
-import com.nameless.impactful.client.ICapabilityItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
 import org.spongepowered.asm.mixin.Mixin;

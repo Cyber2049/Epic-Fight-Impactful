@@ -1,7 +1,7 @@
 package com.nameless.impactful.mixin.common;
 
+import com.nameless.impactful.api.ICapabilityItem;
 import com.nameless.impactful.capabilities.ImpactfulCap;
-import com.nameless.impactful.client.ICapabilityItem;
 import org.spongepowered.asm.mixin.Mixin;
 import yesman.epicfight.world.capabilities.item.CapabilityItem;
 

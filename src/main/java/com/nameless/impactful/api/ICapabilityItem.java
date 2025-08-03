@@ -1,4 +1,4 @@
-package com.nameless.impactful.client;
+package com.nameless.impactful.api;
 
 import com.nameless.impactful.capabilities.ImpactfulCap;
 
