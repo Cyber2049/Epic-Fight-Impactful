@@ -1,6 +1,5 @@
 package com.nameless.impactful.capabilities;
 
-import com.google.common.collect.Maps;
 import com.nameless.impactful.api.HitStopPropertiesReader;
 import com.nameless.impactful.api.ICapabilityItem;
 import com.nameless.impactful.client.CameraEngine;
@@ -19,10 +18,8 @@ import yesman.epicfight.api.animation.types.AttackAnimation;
 import yesman.epicfight.world.capabilities.EpicFightCapabilities;
 import yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch;
 import yesman.epicfight.world.capabilities.item.CapabilityItem;
-import yesman.epicfight.world.capabilities.item.WeaponCategory;
 import yesman.epicfight.world.entity.eventlistener.PlayerEventListener;
 
-import java.util.Map;
 import java.util.UUID;
 
 public class ImpactfulCap {
@@ -30,12 +27,11 @@ public class ImpactfulCap {
     public int HIT_STOP_TIME = 0;
     public float HIT_STOP_SPEED = 1;
     private static final UUID EVENT_UUID = UUID.fromString("a0081299-9a78-4aa2-8650-5496ea6cfe68");
-    public static final Map<WeaponCategory, HitStop> hit_stop_by_weapon_categories = Maps.newHashMap();
 
     public void onInitiate(Player player) {
         PlayerPatch<?> playerPatch = EpicFightCapabilities.getEntityPatch(player, PlayerPatch.class);
         if(playerPatch != null){
-            playerPatch.getEventListener().addEventListener(PlayerEventListener.EventType.DEALT_DAMAGE_EVENT_DAMAGE, EVENT_UUID, (event) -> {
+            playerPatch.getEventListener().addEventListener(PlayerEventListener.EventType.DEAL_DAMAGE_EVENT_DAMAGE, EVENT_UUID, (event) -> {
                 if(event.getDamageSource() != null && event.getDamageSource().getAnimation().get() instanceof AttackAnimation animation){
                     int weaponCategoryId = event.getPlayerPatch().getAdvancedHoldingItemCapability(InteractionHand.MAIN_HAND).getWeaponCategory().universalOrdinal();
                     int animationId = animation.getId();
@@ -45,7 +41,7 @@ public class ImpactfulCap {
                 }
             });
 
-            playerPatch.getEventListener().addEventListener(PlayerEventListener.EventType.DEALT_DAMAGE_EVENT_ATTACK, EVENT_UUID, (event) -> {
+            playerPatch.getEventListener().addEventListener(PlayerEventListener.EventType.DEAL_DAMAGE_EVENT_ATTACK, EVENT_UUID, (event) -> {
                 if(event.getDamageSource() != null && event.getDamageSource().getAnimation().get() instanceof AttackAnimation){
                     event.getPlayerPatch().getOriginal().getEntityData().set(HIT_STOP, true);
                 }
@@ -95,7 +91,7 @@ public class ImpactfulCap {
 
     @OnlyIn(Dist.CLIENT)
     public void applyBlur(RadialBlurEngine.RadialBlur blur){
-        RadialBlurEngine.getInstance().applyRadialBlurByAnim(blur);
+        RadialBlurEngine.getInstance().applyRadialBlur(blur);
     }
 
     public record HitStop(int duration, float speed){

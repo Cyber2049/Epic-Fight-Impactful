@@ -1,6 +1,5 @@
 package com.nameless.impactful.client;
 
-import com.google.common.collect.Maps;
 import com.nameless.impactful.Impactful;
 import com.nameless.impactful.config.ClientConfig;
 import net.minecraft.client.Minecraft;
@@ -17,10 +16,8 @@ import yesman.epicfight.api.animation.AnimationManager;
 import yesman.epicfight.api.animation.types.AttackAnimation;
 import yesman.epicfight.client.ClientEngine;
 import yesman.epicfight.client.renderer.patched.item.RenderItemBase;
-import yesman.epicfight.world.capabilities.item.WeaponCategory;
 
 import java.util.Comparator;
-import java.util.Map;
 import java.util.PriorityQueue;
 
 import static com.nameless.impactful.api.client.VFXPropertiesReader.VFXAnimationProperties.SCREEN_SHAKE;
@@ -39,15 +36,14 @@ public class CameraEngine {
     }
     private final PriorityQueue<ShakeEntry> queue =
             new PriorityQueue<>(Comparator.comparingDouble(e -> -e.strength));
-    public static final Map<WeaponCategory, ShakeEntry> camera_shake_by_weapon_categories = Maps.newHashMap();
     private final ShakeEntry default_entry = new ShakeEntry(1d,3,0.3d);
     public void tick(ViewportEvent.ComputeCameraAngles event, Player player) {
         if (ClientConfig.DISABLE_SCREEN_SHAKE.get() || Minecraft.getInstance().isPaused() || queue.isEmpty()) return;
 
         queue.removeIf(entry -> {
             entry.remainingTicks--;
-            entry.strength *= 0.97;
-            entry.frequency *= 0.97;
+            entry.strength *= 0.99;
+            entry.frequency *= 0.99;
             return entry.remainingTicks <= 0;
         });
 
@@ -59,7 +55,6 @@ public class CameraEngine {
             event.setPitch((float) (event.getPitch() + k * Math.cos(ticksExistedDelta * f + 2)));
             event.setYaw((float) (event.getYaw() + k * Math.cos(ticksExistedDelta * f + 1)));
             event.setRoll((float) (event.getRoll() + k * Math.cos(ticksExistedDelta * f)));
-            top.strength *= 0.97d;
         }
     }
 
@@ -90,7 +85,6 @@ public class CameraEngine {
     public static class Events {
         @SubscribeEvent(priority = EventPriority.LOW)
         public static void cameraSetupEvent(ViewportEvent.ComputeCameraAngles event) {
-
             Player player = Minecraft.getInstance().player;
             if(player == null) return;
 

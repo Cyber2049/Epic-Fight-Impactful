@@ -1,7 +1,6 @@
 package com.nameless.impactful.client;
 
 
-import com.google.common.collect.Maps;
 import com.mojang.blaze3d.platform.Window;
 import com.nameless.impactful.Impactful;
 import com.nameless.impactful.config.ClientConfig;
@@ -21,10 +20,8 @@ import yesman.epicfight.api.animation.AnimationManager;
 import yesman.epicfight.api.animation.types.AttackAnimation;
 import yesman.epicfight.client.ClientEngine;
 import yesman.epicfight.client.renderer.patched.item.RenderItemBase;
-import yesman.epicfight.world.capabilities.item.WeaponCategory;
 
 import java.io.IOException;
-import java.util.Map;
 
 import static com.nameless.impactful.api.client.VFXPropertiesReader.VFXAnimationProperties.RADIAL_BLUR;
 
@@ -37,7 +34,6 @@ public class RadialBlurEngine {
             ResourceLocation.fromNamespaceAndPath(Impactful.MOD_ID, "shaders/post/radial_blur.json");
 
     private RadialBlur radialBlur;
-    public static final Map<WeaponCategory, RadialBlur> radial_blur_by_weapon_categories = Maps.newHashMap();
     private final RadialBlur default_entry = new RadialBlur(2,0.5f);
 
 
@@ -54,7 +50,7 @@ public class RadialBlurEngine {
         reset();
     }
 
-    public void applyRadialBlurByAnim(RadialBlur radialBlur){
+    public void applyRadialBlur(RadialBlur radialBlur){
         this.radialBlur = radialBlur.copy();
         reset();
     }
@@ -125,7 +121,7 @@ public class RadialBlurEngine {
 
         public void tick(){
             this.age++;
-            this.blurRate *= 0.98f;
+            this.blurRate *= 0.99f;
             if(age > lifeTime){
                 this.removed = true;
             }
