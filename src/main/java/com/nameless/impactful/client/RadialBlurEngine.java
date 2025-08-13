@@ -121,7 +121,7 @@ public class RadialBlurEngine {
 
         public void tick(){
             this.age++;
-            if(age > lifeTime * 0.5) this.blurRate *= 0.97f;
+            if(age > lifeTime * 0.5) this.blurRate *= 0.98f;
             if(age > lifeTime){
                 this.removed = true;
             }
