@@ -36,13 +36,13 @@ public class CameraEngine {
     }
     private final PriorityQueue<ShakeEntry> queue =
             new PriorityQueue<>(Comparator.comparingDouble(e -> -e.strength));
-    private final ShakeEntry default_entry = new ShakeEntry(1d,3,0.3d);
+    private final ShakeEntry default_entry = new ShakeEntry(1d,3,0.3d, 0);
     public void tick(ViewportEvent.ComputeCameraAngles event, Player player) {
         if (ClientConfig.DISABLE_SCREEN_SHAKE.get() || Minecraft.getInstance().isPaused() || queue.isEmpty()) return;
 
         queue.removeIf(entry -> {
             entry.remainingTicks--;
-            if(entry.remainingTicks < 10){
+            if(entry.remainingTicks < entry.decay_time){
                 entry.strength *= 0.97;
                 entry.frequency *= 0.97;
             }
@@ -64,11 +64,11 @@ public class CameraEngine {
         ShakeEntry entry1 = entry.copy();
         queue.add(entry1);
     }
-    public void shakeCamera(float strength, int time, float frequency){
-        this.shakeCamera(new ShakeEntry(strength, time, frequency));
+    public void shakeCamera(float strength, int time, float frequency, int decay_time){
+        this.shakeCamera(new ShakeEntry(strength, time, frequency, decay_time));
     }
-    public void shakeCamera(int time, float strength){
-        this.shakeCamera(new ShakeEntry(strength, time, 0.3));
+    public void shakeCamera(int time, float strength, int decay_time){
+        this.shakeCamera(new ShakeEntry(strength, time, 0.3, decay_time));
     }
     public void shakeCameraByAnim(int animationId, float elapsedTime){
         Player player = Minecraft.getInstance().player;
@@ -97,18 +97,20 @@ public class CameraEngine {
     public static class ShakeEntry {
         double strength;
         int remainingTicks;
+        int decay_time;
         double frequency;
-        public ShakeEntry(double strength, int tick, double frequency) {
+        public ShakeEntry(double strength, int tick, double frequency, int decay_time) {
             this.strength = strength;
             this.remainingTicks = tick;
             this.frequency = frequency;
+            this.decay_time = decay_time;
         }
-        public ShakeEntry(double strength, int tick){
-            this(strength, tick, 0.3f);
+        public ShakeEntry(double strength, int tick, int decay_time){
+            this(strength, tick, 0.3f, decay_time);
         }
 
         public ShakeEntry copy(){
-            return new ShakeEntry(this.strength, this.remainingTicks, this.frequency);
+            return new ShakeEntry(this.strength, this.remainingTicks, this.frequency, this.decay_time);
         }
     }
 }

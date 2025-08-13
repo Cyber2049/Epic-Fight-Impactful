@@ -34,7 +34,7 @@ public class RadialBlurEngine {
             ResourceLocation.fromNamespaceAndPath(Impactful.MOD_ID, "shaders/post/radial_blur.json");
 
     private RadialBlur radialBlur;
-    private final RadialBlur default_entry = new RadialBlur(2,0.5f);
+    private final RadialBlur default_entry = new RadialBlur(2,0.5f, 0);
 
 
     public RadialBlurEngine(){
@@ -45,8 +45,8 @@ public class RadialBlurEngine {
     }
 
 
-    public void applyRadialBlur(int lifTime, float blurRate){
-        this.radialBlur = new RadialBlur(lifTime, blurRate);
+    public void applyRadialBlur(int lifTime, float blurRate, int decay_time){
+        this.radialBlur = new RadialBlur(lifTime, blurRate, decay_time);
         reset();
     }
 
@@ -64,7 +64,7 @@ public class RadialBlurEngine {
         if(AnimationManager.byId(animationId).get() instanceof AttackAnimation attackAnimation){
             radialBlur = attackAnimation.getPhaseByTime(elapsedTime).getProperty(RADIAL_BLUR).orElse(radialBlur);
         }
-        this.applyRadialBlur(radialBlur.lifeTime, radialBlur.blurRate);
+        this.applyRadialBlur(radialBlur.lifeTime, radialBlur.blurRate, radialBlur.decay_time);
     }
 
     private void reset(){
@@ -111,24 +111,26 @@ public class RadialBlurEngine {
     public static class RadialBlur {
         private int age;
         private final int lifeTime;
+        private final int decay_time;
         private boolean removed;
         private float blurRate;
 
-        public RadialBlur(int lifeTime, float blurRate) {
+        public RadialBlur(int lifeTime, float blurRate, int decay_time) {
             this.lifeTime = lifeTime;
             this.blurRate = blurRate;
+            this.decay_time = decay_time;
         }
 
         public void tick(){
             this.age++;
-            if(age > lifeTime * 0.5) this.blurRate *= 0.98f;
+            if(age > decay_time)this.blurRate *= 0.98f;
             if(age > lifeTime){
                 this.removed = true;
             }
         }
 
         public RadialBlur copy(){
-            return new RadialBlur(this.lifeTime, this.blurRate);
+            return new RadialBlur(this.lifeTime, this.blurRate, this.decay_time);
         }
     }
 }

@@ -22,7 +22,8 @@ public class RadialBlurCommand implements Command<CommandSourceStack>
         return Commands.literal("blur")
                 .then(Commands.argument("time", IntegerArgumentType.integer(0, 400))
                 .then(Commands.argument("amplitude", FloatArgumentType.floatArg(0, 10F))
-                .executes(COMMAND)));
+                        .then(Commands.argument("decay_time", IntegerArgumentType.integer(0, 400))
+                .executes(COMMAND))));
     }
 
     @Override
@@ -30,7 +31,8 @@ public class RadialBlurCommand implements Command<CommandSourceStack>
         ServerPlayer player = EntityArgument.getPlayer(context, "player");
         int time = IntegerArgumentType.getInteger(context, "time");
         float amplitude = FloatArgumentType.getFloat(context, "amplitude");
-        NetWorkManger.sendToPlayer(new CPApplyBlur(time, amplitude), player);
+        int decay_time = IntegerArgumentType.getInteger(context, "decay_time");
+        NetWorkManger.sendToPlayer(new CPApplyBlur(time, amplitude, decay_time), player);
         return 1;
     }
 }

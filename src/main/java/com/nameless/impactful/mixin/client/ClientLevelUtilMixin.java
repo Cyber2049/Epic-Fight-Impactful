@@ -20,7 +20,7 @@ public class ClientLevelUtilMixin {
             if (localPlayer != null && localPlayer.position().distanceTo(center) <= radius + 3) {
                 int t = (int) Math.max(20, Math.min(15 * radius, 120));
                 float s = (float) Math.min(2 * radius, 12);
-                CameraEngine.getInstance().shakeCamera(t, s);
+                CameraEngine.getInstance().shakeCamera(t, s, 0);
             }
         }
 }

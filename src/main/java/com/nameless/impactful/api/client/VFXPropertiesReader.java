@@ -94,7 +94,8 @@ public class VFXPropertiesReader {
                         int phase = GsonHelper.getAsInt(entry, "phase");
                         double strength = GsonHelper.getAsDouble(entry, "strength");
                         int duration = GsonHelper.getAsInt(entry, "duration");
-                        property.shake_entry_map.put(phase, new CameraEngine.ShakeEntry(strength, duration));
+                        int decay_time = entry.has("decay_time") ? GsonHelper.getAsInt(entry, "decay_time") : 0;
+                        property.shake_entry_map.put(phase, new CameraEngine.ShakeEntry(strength, duration, decay_time));
                     });
                 }
             }
@@ -109,7 +110,8 @@ public class VFXPropertiesReader {
                         int phase = GsonHelper.getAsInt(entry, "phase");
                         float strength = GsonHelper.getAsFloat(entry, "strength");
                         int duration = GsonHelper.getAsInt(entry, "duration");
-                        property.radial_blur_map.put(phase, new RadialBlurEngine.RadialBlur(duration, strength));
+                        int decay_time = entry.has("decay_time") ? GsonHelper.getAsInt(entry, "decay_time") : 0;
+                        property.radial_blur_map.put(phase, new RadialBlurEngine.RadialBlur(duration, strength, decay_time));
                     });
                 }
             }
@@ -119,16 +121,18 @@ public class VFXPropertiesReader {
                 if(shakeEntry != null){
                     float strength = GsonHelper.getAsFloat(shakeEntry, "strength");
                     int duration = GsonHelper.getAsInt(shakeEntry, "duration");
-                    property.shakeEventList.add(new CameraEngine.ShakeEntry(strength, duration));
+                    int decay_time = shakeEntry.has("decay_time") ? GsonHelper.getAsInt(shakeEntry, "decay_time") : 0;
+                    property.shakeEventList.add(new CameraEngine.ShakeEntry(strength, duration, decay_time));
                 }
             }
 
             if (jsonObject.has("event_blur")) {
-                JsonObject shakeEntry = jsonObject.getAsJsonObject("event_blur");
-                if(shakeEntry != null){
-                    float strength = GsonHelper.getAsFloat(shakeEntry, "strength");
-                    int duration = GsonHelper.getAsInt(shakeEntry, "duration");
-                    property.blurEventList.add(new RadialBlurEngine.RadialBlur(duration, strength));
+                JsonObject blurEntry = jsonObject.getAsJsonObject("event_blur");
+                if(blurEntry != null){
+                    float strength = GsonHelper.getAsFloat(blurEntry, "strength");
+                    int duration = GsonHelper.getAsInt(blurEntry, "duration");
+                    int decay_time = blurEntry.has("decay_time") ? GsonHelper.getAsInt(blurEntry, "decay_time") : 0;
+                    property.blurEventList.add(new RadialBlurEngine.RadialBlur(duration, strength, decay_time));
                 }
             }
 

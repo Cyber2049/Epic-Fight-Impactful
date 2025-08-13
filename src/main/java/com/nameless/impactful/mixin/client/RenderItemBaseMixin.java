@@ -29,14 +29,16 @@ public class RenderItemBaseMixin implements IRenderItemBase {
         JsonObject object = jsonObj.getAsJsonObject("shake_entry");
         double strength = GsonHelper.getAsDouble(object, "strength");
         int duration = GsonHelper.getAsInt(object, "duration");
-        return new CameraEngine.ShakeEntry(strength, duration);
+        int decay_time = object.has("decay_time") ? GsonHelper.getAsInt(object, "decay_time") : 0;
+        return new CameraEngine.ShakeEntry(strength, duration, decay_time);
     }
 
     private RadialBlurEngine.RadialBlur deserializeRadialBlur(JsonObject jsonObj){
         JsonObject object = jsonObj.getAsJsonObject("blur_entry");
         float strength = GsonHelper.getAsFloat(object, "strength");
         int duration = GsonHelper.getAsInt(object, "duration");
-        return new RadialBlurEngine.RadialBlur(duration, strength);
+        int decay_time = object.has("decay_time") ? GsonHelper.getAsInt(object, "decay_time") : 0;
+        return new RadialBlurEngine.RadialBlur(duration, strength, decay_time);
     }
 
     @Override
